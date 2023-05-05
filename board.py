@@ -28,7 +28,33 @@ class Board():
                     self.grid[coord[1]*self.bounds[0] + coord[0]] = color
                 except:
                     print("end round fail coord", coord)
-        # self.print_grid()
+
+        """
+            we are going from top to bottom here, so there is sometrickiness to it.
+            anytime rows are deleted, there is a gap.  for now, i'm just going to replace
+            everything by shifting every row down as many places as there are full rows
+        """
+        rowsToDelete = 0
+        lastDeletedRow = -1
+        for i in range(0, self.bounds[1]):
+            # i is a row, j is the elemnt in the row
+            blockCounterForThisRow = 0
+            for j in range(0, self.bounds[0]):
+                if self.grid[i*self.bounds[0] + j] is not (0,0,0):
+                    blockCounterForThisRow += 1
+            if blockCounterForThisRow == self.bounds[0]:
+                rowsToDelete += 1
+                lastDeletedRow = i
+        
+        if lastDeletedRow > -1:
+            # print('deleting rows:')
+            # print('last deleted row: ', lastDeletedRow)
+            # print('rows to delete: ', rowsToDelete)
+
+            for i in range(lastDeletedRow, rowsToDelete, -1):
+                # print('i: ', i)
+                for j in range(0, self.bounds[0]):
+                    self.grid[i * self.bounds[0] + j] = self.grid[(i-rowsToDelete) * self.bounds[0] + j]
         
 
     def check_coords(self, coords):
