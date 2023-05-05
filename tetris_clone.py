@@ -5,7 +5,6 @@ from game import *
 from controls import *
 
 if __name__ == "__main__":
-    piece = Piece(1)
     board = Board()
-    game = Game(board=board,piece=piece)
+    game = Game(board=board)
     game.run()
