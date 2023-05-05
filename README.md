@@ -20,11 +20,11 @@ Events:
     piece touches another piece
 
 
-Flow:
-    - each "round":  
-        - a certain amount of time:
-            - at the beginning of the timer, the piece drops a level before the timer ends, the user can flip the piece
-        - the piece enters the level below in the same orientation as the level above
+Flow:  
+    each "round":  
+        a certain amount of time:
+            at the beginning of the timer, the piece drops a level before the timer ends, the user can flip the piece
+        the piece enters the level below in the same orientation as the level above
     
     piece movement:
         rotation:
