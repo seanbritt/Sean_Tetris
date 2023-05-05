@@ -22,13 +22,13 @@ class Board():
         for coord in coords:
             if coord[1] >= 0 and coord[0] >= 0:
                 try: 
-                    print("trying to add coords to grid")
-                    print("row: ", coord[1])
-                    print("column: ", coord[0])
+                    # print("trying to add coords to grid")
+                    # print("row: ", coord[1])
+                    # print("column: ", coord[0])
                     self.grid[coord[1]*self.bounds[0] + coord[0]] = color
                 except:
                     print("end round fail coord", coord)
-        self.print_grid()
+        # self.print_grid()
         
 
     def check_coords(self, coords):
@@ -56,5 +56,5 @@ class Board():
         for i in range(0, self.bounds[1]):
             line = []
             for j in range(0, self.bounds[0]):
-                line.append(self.grid[i * self.bounds[0]] + j)
+                line.append(self.grid[i * self.bounds[0] + j])
             print(line)

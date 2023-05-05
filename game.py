@@ -60,7 +60,7 @@ class Game():
                     roundCheck = False
 
                     #do all the board resolution in this step
-                    print(newCoords)
+                    # print(newCoords)
                     self.board.end_round(newCoords, self.current_piece.get_color())
 
 
@@ -92,7 +92,7 @@ class Game():
         grid = self.board.get_grid()
         for i in range(0, self.board.get_height()):
             for j in range(0, self.board.get_width()):
-                pygame.draw.rect(self.boardScreen, grid[i*self.board.get_width() + j], (i*_PIECE_SIZE, j*_PIECE_SIZE, _PIECE_SIZE, _PIECE_SIZE))
+                pygame.draw.rect(self.boardScreen, grid[i*self.board.get_width() + j], (j*_PIECE_SIZE, i*_PIECE_SIZE, _PIECE_SIZE, _PIECE_SIZE))
 
         #render the piece
         for coord in currentCoords:
