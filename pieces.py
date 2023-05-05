@@ -42,8 +42,8 @@ LONG = {'coords':[
     ],'color':(200,200,200)
 }
 
-# _OPTIONS = [SQUARE, TEE, J_LEFT,J_RIGHT, S_LEFT, S_RIGHT, LONG]
-_OPTIONS = [LONG]
+_OPTIONS = [SQUARE, TEE, J_LEFT,J_RIGHT, S_LEFT, S_RIGHT, LONG]
+# _OPTIONS = [LONG]
 
 class Piece():
     def __init__(self, middle):
