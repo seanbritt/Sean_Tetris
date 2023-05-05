@@ -3,27 +3,54 @@
 
 import random
 
-SQUARE = [  
-    [0,0],
-    [0,-1],
-    [-1,0],
-    [-1,-1]
-]
-# TEE = ((0,1,2),(1),(1))
-# J_LEFT = ((1),(1),(0,1))
-# J_RIGHT = ((0),(0),(0,1))
-# S_LEFT = ((0,1),(1,2))
-# S_RIGHT = ((1,2),(0,1))
-# LONG = ((0),(0),(0),(0))
+SQUARE = {'coords':[
+        [-1,-1],[0,-1],
+        [-1,0],[0,0]
+    ],'color':(200,0,0)
+}
+
+TEE = {'coords':[
+           [0,-1],
+    [-1,0],[0,0],[1,0],
+    ],'color':(0,200,0)
+}
+
+J_LEFT = {'coords':[
+               [0,-2],
+               [0,-1],
+        [-1,0],[0,0]
+    ],'color':(0,0,200)
+}
+J_RIGHT = {'coords':[
+        [0,-2],
+        [0,-1],
+        [0,0], [1,0]
+    ],'color':(200,0,200)
+}
+S_LEFT = {'coords':[
+    [-1,-1],[0,-1], 
+            [0,0],[1,0]
+    ],'color':(0,200,200)
+}
+S_RIGHT = {'coords':[
+            [0,-1],[1,-1],
+     [-1,0], [0,0]
+    ],'color':(200,200,0)
+}
+LONG = {'coords':[
+        [-1,0],[0,0],[1,0],[2,0]
+    ],'color':(200,200,200)
+}
 
 # _OPTIONS = [SQUARE, TEE, J_LEFT,J_RIGHT, S_LEFT, S_RIGHT, LONG]
-_OPTIONS = [SQUARE]
+_OPTIONS = [LONG]
 
 class Piece():
     def __init__(self, middle):
-        self.coords = _OPTIONS[random.randint(0, len(_OPTIONS)-1)]
+        shape = _OPTIONS[random.randint(0, len(_OPTIONS)-1)]
+        self.coords = shape['coords']
         self.position = [middle, 0]
-        self.color = (50,220, 50)
+        self.color = shape['color']
 
     def get_color(self):
         return self.color
@@ -34,7 +61,7 @@ class Piece():
         coords = []
         for coord in self.coords:
             coords.append([
-                int(-(coord[1]+0.5)-0.5),
+                int(-(coord[1]+1)),
                 int(coord[0])
             ])
         return coords
