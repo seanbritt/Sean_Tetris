@@ -6,15 +6,15 @@ from game import *
 from controls import *
 
 _BOUNDARY = 50
-_PIECE_SIZE = 10
+_PIECE_SIZE = 20
 
 
 class Game():
     def __init__(self, piece=None, board=None):
         self.board = board
-        self.current_piece = Piece(int(board.bounds[0]/2))
-        self.window = pygame.display.set_mode((self.board.bounds[0]+_BOUNDARY*2, self.board.bounds[1]+_BOUNDARY*2))
-        self.boardScreen = pygame.Surface((self.board.bounds[0], self.board.bounds[1]))
+        self.current_piece = Piece(int((self.board.bounds[0])/2))
+        self.window = pygame.display.set_mode((self.board.bounds[0]*_PIECE_SIZE+_BOUNDARY*2, self.board.bounds[1]*_PIECE_SIZE+_BOUNDARY*2))
+        self.boardScreen = pygame.Surface((self.board.bounds[0]*_PIECE_SIZE, self.board.bounds[1]*_PIECE_SIZE))
 
     def run(self):
         running = True
@@ -60,10 +60,12 @@ class Game():
                     roundCheck = False
 
                     #do all the board resolution in this step
+                    print(newCoords)
                     self.board.end_round(newCoords, self.current_piece.get_color())
 
+
                     #get a new piece and see if it overlaps anything on the board
-                    self.current_piece = Piece(int(self.board.bounds[0]/2))
+                    self.current_piece = Piece(int((self.board.bounds[0])/2))
                     newCoords = self.current_piece.get_coords()
                     if not self.board.check_coords(newCoords):
                         running = False
@@ -87,12 +89,14 @@ class Game():
         self.boardScreen.fill((0,0,0))
 
         #render the pieces
-        for piece in self.board.get_pieces():
-            pygame.draw.rect(self.boardScreen, piece['color'], (piece['coords'][0], piece['coord'][1], _PIECE_SIZE, _PIECE_SIZE))
+        grid = self.board.get_grid()
+        for i in range(0, self.board.get_height()):
+            for j in range(0, self.board.get_width()):
+                pygame.draw.rect(self.boardScreen, grid[i*self.board.get_width() + j], (i*_PIECE_SIZE, j*_PIECE_SIZE, _PIECE_SIZE, _PIECE_SIZE))
 
         #render the piece
-        for coord in self.current_piece.get_coords():
-            pygame.draw.rect(self.boardScreen, self.current_piece.get_color(), (coord[0], coord[1], _PIECE_SIZE, _PIECE_SIZE))
+        for coord in currentCoords:
+            pygame.draw.rect(self.boardScreen, self.current_piece.get_color(), (coord[0]*_PIECE_SIZE, coord[1]*_PIECE_SIZE, _PIECE_SIZE, _PIECE_SIZE))
 
         #blit the board onto the window
         self.window.blit(self.boardScreen, (_BOUNDARY, _BOUNDARY))

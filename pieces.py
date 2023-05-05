@@ -5,9 +5,9 @@ import random
 
 SQUARE = [  
     [0,0],
-    [0,1],
-    [1,0],
-    [0,1]
+    [0,-1],
+    [-1,0],
+    [-1,-1]
 ]
 # TEE = ((0,1,2),(1),(1))
 # J_LEFT = ((1),(1),(0,1))
@@ -22,10 +22,8 @@ _OPTIONS = [SQUARE]
 class Piece():
     def __init__(self, middle):
         self.coords = _OPTIONS[random.randint(0, len(_OPTIONS)-1)]
-        # self.rotation = 0
         self.position = [middle, 0]
         self.color = (50,220, 50)
-        self.rotation = [0,0]
 
     def get_color(self):
         return self.color
@@ -35,17 +33,20 @@ class Piece():
             return self.coords
         coords = []
         for coord in self.coords:
-            coords.append([-coord[1], coord[0]])
+            coords.append([
+                int(-(coord[1]+0.5)-0.5),
+                int(coord[0])
+            ])
         return coords
     
     def translate(self, direction, rotatedCoords):
         newCoords = []
         for coord in rotatedCoords:
             newCoords.append(
-                [coord[0]+self.position[0]+direction[0],
-                coord[1]+self.position[1]+direction[1]]
+                [(coord[0]+self.position[0]+direction[0]),
+                (coord[1]+self.position[1]+direction[1])]
             )
-        print("new coord 0: ", newCoords[0])
+        # print("new coords: ", newCoords[0])
         return newCoords
 
     def save_move(self, direction, newRot):
